@@ -1,10 +1,20 @@
-from circleshape import CircleShape
-from shot import Shot
-from constants import SHOT_RADIUS, PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS
 import pygame
 
+from circleshape import CircleShape
+from constants import (
+    LINE_WIDTH,
+    PLAYER_RADIUS,
+    PLAYER_SHOOT_COOLDOWN_SECONDS,
+    PLAYER_SHOOT_SPEED,
+    PLAYER_SPEED,
+    PLAYER_TURN_SPEED,
+    SHOT_RADIUS,
+)
+from shot import Shot
+
+
 class Player(CircleShape):
-    def __init__(self, x, y, PLAYER_RADIUS):
+    def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_cooldown = 0
@@ -49,7 +59,7 @@ class Player(CircleShape):
 
     def shoot(self):
         shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
-        start_velocity = pygame.Vector2(0,1)
+        start_velocity = pygame.Vector2(0, 1)
         rotated_start_velocity = start_velocity.rotate(self.rotation)
         rotated_velocity = rotated_start_velocity * PLAYER_SHOOT_SPEED
         shot.velocity = rotated_velocity
